@@ -54,17 +54,16 @@ const AboutSection = () => {
         >
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 rounded-3xl transform -rotate-6"></div>
-            <div className="w-full aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-3xl relative z-10 flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                  <Icon name="Mic2" size={64} className="text-white" />
-                </div>
-                <p className="text-zinc-400 text-lg">Фото вокалиста</p>
-              </div>
+            <div className="w-full aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-3xl relative z-10 overflow-hidden">
+              <img
+                src="https://cdn.poehali.dev/projects/c0168bd1-c9ad-409f-9b15-97f5c9c5d255/bucket/5ffcd411-c66b-43cf-8649-910534be263c.jpg"
+                alt="Диана — вокалист"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Обо мне</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Привет, я Диана</h2>
             <p className="text-lg mb-6 text-zinc-300">
               Я — вокалист с 7-летним опытом живых выступлений. Пою каверы на популярные хиты
               с обработкой автотюна: создаю атмосферу, которая заставляет двигаться и подпевать.
