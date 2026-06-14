@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Send, CheckCircle } from "lucide-react";
 
+const SEND_URL = "https://functions.poehali.dev/5948dd48-2343-4ec2-8f6d-6bf997112104";
+
 const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -12,6 +14,7 @@ const ContactSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
@@ -35,21 +38,34 @@ const ContactSection = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
+    setError("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Симуляция отправки
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log("Форма отправлена:", formData);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    // Сброс формы через 3 секунды
-    setTimeout(() => {
-      setIsSubmitted(false);
+    setError("");
+
+    try {
+      const res = await fetch(SEND_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        setError("Что-то пошло не так. Попробуйте ещё раз.");
+        return;
+      }
+
+      setIsSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
-    }, 3000);
+      setTimeout(() => setIsSubmitted(false), 4000);
+    } catch {
+      setError("Ошибка соединения. Проверьте интернет и попробуйте снова.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -103,6 +119,9 @@ const ContactSection = () => {
                 className="bg-white/5 border-zinc-700 text-zinc-200 placeholder-zinc-500 min-h-[120px]"
               />
             </div>
+            {error && (
+              <p className="text-red-400 text-sm mb-4 text-center">{error}</p>
+            )}
             <Button
               type="submit"
               className="w-full bg-white text-black hover:bg-zinc-200 transition-colors relative overflow-hidden group"
@@ -117,12 +136,12 @@ const ContactSection = () => {
                 ) : isSubmitted ? (
                   <>
                     <CheckCircle className="mr-2" size={18} />
-                    Отправлено!
+                    Заявка отправлена!
                   </>
                 ) : (
                   <>
                     <Send className="mr-2" size={18} />
-                    Отправить сообщение
+                    Отправить заявку
                   </>
                 )}
               </span>
