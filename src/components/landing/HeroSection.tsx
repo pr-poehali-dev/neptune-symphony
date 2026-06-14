@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Disc3, Music2, AudioWaveform } from "lucide-react";
+import Icon from "@/components/ui/icon";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,10 +22,10 @@ const HeroSection = () => {
   }, []);
 
   const stats = [
-    { icon: <Play className="w-6 h-6" />, label: "Продано битов", value: "500+" },
-    { icon: <Disc3 className="w-6 h-6" />, label: "Уникальных треков", value: "1000+" },
-    { icon: <Music2 className="w-6 h-6" />, label: "Довольных артистов", value: "200+" },
-    { icon: <AudioWaveform className="w-6 h-6" />, label: "Жанров", value: "10+" },
+    { icon: <Icon name="Mic2" size={24} />, label: "Живых выступлений", value: "300+" },
+    { icon: <Icon name="Music2" size={24} />, label: "Исполненных треков", value: "500+" },
+    { icon: <Icon name="Users" size={24} />, label: "Довольных гостей", value: "10 000+" },
+    { icon: <Icon name="Star" size={24} />, label: "Лет на сцене", value: "7+" },
   ];
 
   return (
@@ -42,12 +42,12 @@ const HeroSection = () => {
           <div className="text-center mb-16 animate-fade-in">
             <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight relative">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
-                Подними свой звук
+                Голос с автотюном
               </span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-zinc-400 max-w-3xl mx-auto">
-              Создаю уникальные биты, которые помогут артистам выделиться. От трэпа до лоу-фай — найди
-              свой идеальный звук и выведи музыку на новый уровень.
+              Вокалист и исполнитель кавер-хитов с обработкой автотюна. Зажигаю любую вечеринку,
+              корпоратив или бар-сессию — живой звук, кайф и море эмоций.
             </p>
             <div className="relative inline-block">
               <Button
@@ -57,8 +57,8 @@ const HeroSection = () => {
                 onMouseLeave={() => setIsHovered(false)}
                 asChild
               >
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  <span className="relative z-10">Слушать биты</span>
+                <a href="#contact">
+                  <span className="relative z-10">Заказать выступление</span>
                   <span
                     className={`ml-2 relative z-10 transition-transform duration-200 ${
                       isHovered ? "translate-x-1" : ""
